@@ -1,0 +1,14 @@
+{
+    "name": "GiaoDien",
+    "alias": "giaodien",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\GiaoDien\\Providers\\GiaoDienServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
