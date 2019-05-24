@@ -20,15 +20,8 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-    $serviceAccount = ServiceAccount::fromJsonFile(dirname(__DIR__,4).'/app/Http/Controllers/dacna-66ea5-9ee2da1e4e0a.json');
-    $firebase = (new Factory())
-    ->withServiceAccount($serviceAccount)
-    ->withDatabaseUri('https://dacna-66ea5.firebaseio.com/')
-    ->create();
-    $database = $firebase->getDatabase();
-    $data=$database->getReference('WorkingTime');
-        $array = $data->getValue();
-        return view('giaodien::layouts.appointment',['WorkingTime'=>$array]);
+        $showVar =0;
+        return view('giaodien::layouts.appointment',['ShowVar'=>$showVar,'dateValue'=>null]);
     }
 
     /**
@@ -55,9 +48,18 @@ class AppointmentController extends Controller
      * @param int $id
      * @return Response
      */
-    public function show($id)
+    public function show($date)
     {
-        return view('giaodien::show');
+        $serviceAccount = ServiceAccount::fromJsonFile(dirname(__DIR__,4).'/app/Http/Controllers/dacna-66ea5-9ee2da1e4e0a.json');
+        $firebase = (new Factory())
+        ->withServiceAccount($serviceAccount)
+        ->withDatabaseUri('https://dacna-66ea5.firebaseio.com/')
+        ->create();
+        $database = $firebase->getDatabase();
+        $data=$database->getReference('ServingHours/'.$date);
+        $array = $data->getValue();
+        $showVar=1;
+        return view('giaodien::layouts.appointment',['ServingHours'=>$array,'ShowVar'=>$showVar,'dateValue'=>$date]);
     }
 
     /**
@@ -89,5 +91,18 @@ class AppointmentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function checkPost(){
+        if(isset($_POST['ShowCalendarBtn'])){
+            if(isset($_POST['date']))
+                $this->show($_POST['date']);
+            else{
+                return redirect()->back()->with('alert','thieu thong tin!!');
+            }
+        }
+        else{
+            return redirect()->back()->with('alert','thất bại!!');
+        }
     }
 }

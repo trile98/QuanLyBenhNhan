@@ -14,4 +14,7 @@
 Route::prefix('admin')->group(function() {
     Route::get('/', 'AdminController@index');
     Route::post('/', 'AdminController@processLogin');
+
+    Route::get('/Management/Time', 'TimeController@index');
+    Route::post('/Management/Time', 'TimeController@store');
 });

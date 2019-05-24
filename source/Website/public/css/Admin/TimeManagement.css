@@ -1,0 +1,19 @@
+.Time_Management_content{
+	background-color: white;
+	box-shadow: 5px 5px grey;
+	border: solid 0.5px black;
+	/*margin: 10px 60px;*/
+}
+
+.Time_Management_content .timepicker{
+	margin:10px;
+}
+
+.Time_Management_content .contentTitle{
+	margin:10px;
+}
+
+.Time_Management_content .timepickerTitle{
+	text-align: right;
+}
+

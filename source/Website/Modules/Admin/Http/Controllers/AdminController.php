@@ -111,7 +111,7 @@ class AdminController extends Controller
                 if($User['user_name']==$UserName){
                     if($User['password']==$Password){
                         if($User['Authority']==1){
-
+                            return view('admin::Home_content');
                         }
                         else{
                             return redirect()->back()->with('alert','Bạn không có quyền truy cập'); //ten dang nhap dung nhung khong  co quyen admin
