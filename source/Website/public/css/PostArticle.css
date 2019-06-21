@@ -1,0 +1,25 @@
+.PostArticleForm{
+	margin-top: 60px;
+	margin-left: 60px;
+	margin-right: 60px;
+	background-color: white;
+	border: solid 1px black;
+	border-radius: .25rem;
+	padding: 10px;
+}
+
+.PostArticleForm .title{
+	text-align: right;
+}
+
+.PostArticleForm .row{
+	margin-top: 10px;
+}
+
+.PostArticleForm .btnSubmit{
+	text-align: right;
+}
+
+#editor{
+	min-height: 100%;
+}

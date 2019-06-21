@@ -14,63 +14,30 @@
 	<link rel="stylesheet" type="text/css" href="/css/layoutMaster.css">
 	<link rel="stylesheet" type="text/css" href="/css/home.css">
 	<link rel="stylesheet" type="text/css" href="/css/appointment.css">
+	<link rel="stylesheet" type="text/css" href="/css/PostArticle.css">
+	<link rel="stylesheet" type="text/css" href="/css/loginTab.css">
 
 	<!-- slick -->
 	<link rel="stylesheet" type="text/css" href="/css/slick/slick.css">
 	<link rel="stylesheet" type="text/css" href="/css/slick/slick-theme.css">
 
-	
 	<!-- Bootstrap Date-Picker Plugin -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
+
 
 </head>
 
 <body>
 	<script type="text/javascript" src="/js/jquery/jquery-3.3.1.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="/js/slick/slick.min.js"></script>
 
-	<!-- header -->
- 	<header class="container">
-		<div class="row">
-			<div class="col-4"><h3>Phòng Khám B & T</h3></div>
-			<div class="menu col-8">
-				<ul>
-					<li class="menu-title"><a href="#">Trang chủ</a></li>
-					<li class="menu-title"><a href="#">Giới thiệu</a></li>
-					<li class="menu-title active"><a href="#">Đặt lịch</a></li>
-					<li class="menu-title"><a href="#">Tin tức</a></li>
-					<li class="menu-title"><a href="#">Liên hệ</a></li>
-					<li class="menu-title"><a href="#">Đăng nhập</a></li>
-				</ul>
-			</div>
-		</div>
-		
-	</header>
+	@include($headerLink)
 
+	@yield('content')
 
-<!-- end header -->
-
-@yield('content')
-
-
-<!-- footer -->
-<footer class="py-4 container">
-	<div class="col-lg-4 col-md-4 col-sm-12 col-12">
-		<h3>Phòng Khám B & T</h3>
-
-	</div>
-	<div class="col-lg-4 col-md-4 col-sm-12 col-12"></div>
-	<div class="col-lg-4 col-md-4 col-sm-12 col-12">
-		<div class="contactLogo">
-			<!-- <ul>
-				<li></li>
-			</ul> -->
-		</div>
-	</div>
-
-</footer>
-<!-- end footer -->
-
+	@include('giaodien::footer')
 
 <script type="text/javascript">
 	window.onscroll = function () {
@@ -87,23 +54,23 @@
 
 	};
 
-	$('.menu-title').click(function(event) {
+	$('.menu-title a').click(function(event) {
 		var titles = document.querySelectorAll('.menu-title');
 		for (var i = titles.length - 1; i >= 0; i--) {
 			titles[i].className= titles[i].className.replace(' active', '');
 		}
 
-		event.target.className+=' active';
+		event.target.parentNode.className+=' active';
 	});
 </script>
 
- <script>
-    var msg = '{{Session::get('alert')}}';
-    var exist = '{{Session::has('alert')}}';
-    if(exist){
-      alert(msg);
-    }
-  </script>
+<script>
+	var msg = '{{Session::get('alert')}}';
+	var exist = '{{Session::has('alert')}}';
+	if(exist){
+		alert(msg);
+	}
+</script>
 
 </body>
 </html>

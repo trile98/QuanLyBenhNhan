@@ -5,6 +5,8 @@ namespace Modules\GiaoDien\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Session;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -14,7 +16,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('giaodien::layouts.home');
+        $checked='';   
+         // if(!Auth::check()){
+            $headerlink = 'giaodien::header';
+        //     $checked='false';
+        //  }
+        // else{
+        //     $checked='true';
+
+        //     $headerlink = 'giaodien::login_header';
+        // }
+        return view('giaodien::layouts.home',['headerLink'=>$headerlink]);
     }
 
     /**

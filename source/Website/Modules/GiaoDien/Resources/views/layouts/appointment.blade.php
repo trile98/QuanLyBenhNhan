@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="appointment-content">
-	<form method="post" action="/giaodien/datlich">
+	<form method="post" action="/datlich">
 		{{csrf_field()}}
 		<div class="detail container my-3">
 			<h3 class="text-center">Thông tin cuộc hẹn</h3>

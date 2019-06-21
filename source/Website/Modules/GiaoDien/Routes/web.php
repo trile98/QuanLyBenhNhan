@@ -11,8 +11,16 @@
 |
 */
 
-Route::prefix('giaodien')->group(function() {
+Route::prefix('')->group(function() {
     Route::get('/', 'HomeController@index');
     Route::get('/datlich', 'AppointmentController@index');
     Route::post('/datlich', 'AppointmentController@checkPost');
+
+    Route::get('/post-article','PostArticleController@index');
+    Route::post('/post-article','PostArticleController@store');
+
+    Route::get('/dang-nhap','LoginController@index');
+    Route::get('/redirect','LoginController@show');
+    Route::get('/logout','LoginController@logout_process');
+    Route::get('/callback','LoginController@handleProviderCallback');
 });

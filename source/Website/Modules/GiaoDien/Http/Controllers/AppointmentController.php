@@ -20,8 +20,13 @@ class AppointmentController extends Controller
      */
     public function index()
     {
+        
+       if(!auth()->check())
+            $headerlink = 'giaodien::header';
+        else
+            $headerlink = 'giaodien::login_header';
         $showVar =0;
-        return view('giaodien::layouts.appointment',['ShowVar'=>$showVar,'dateValue'=>null]);
+        return view('giaodien::layouts.appointment',['ShowVar'=>$showVar,'dateValue'=>null,'headerLink'=>$headerlink]);
     }
 
     /**
@@ -50,6 +55,11 @@ class AppointmentController extends Controller
      */
     public function show($date)
     {
+        $checkVar = app(LoginController::class)->checkLogin;
+        if($checkVar=='false')
+            $headerlink = 'giaodien::header';
+        else
+            $headerlink = 'giaodien::login_header';
         $serviceAccount = ServiceAccount::fromJsonFile(dirname(__DIR__,4).'/app/Http/Controllers/dacna-66ea5-9ee2da1e4e0a.json');
         $firebase = (new Factory())
         ->withServiceAccount($serviceAccount)
@@ -57,9 +67,9 @@ class AppointmentController extends Controller
         ->create();
         $database = $firebase->getDatabase();
         $data=$database->getReference('ServingHours/'.$date);
-        $array = $data->getValue();
+        $array = $data->orderByKey()->getValue();
         $showVar=1;
-        return view('giaodien::layouts.appointment',['ServingHours'=>$array,'ShowVar'=>$showVar,'dateValue'=>$date]);
+        return view('giaodien::layouts.appointment',['ServingHours'=>$array,'ShowVar'=>$showVar,'dateValue'=>$date,'headerLink'=>$headerlink]);
     }
 
     /**
@@ -96,7 +106,7 @@ class AppointmentController extends Controller
     public function checkPost(){
         if(isset($_POST['ShowCalendarBtn'])){
             if(isset($_POST['date']))
-                $this->show($_POST['date']);
+                return $this->show($_POST['date']);
             else{
                 return redirect()->back()->with('alert','thieu thong tin!!');
             }
