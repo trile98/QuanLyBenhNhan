@@ -16,6 +16,7 @@
 	<link rel="stylesheet" type="text/css" href="/css/appointment.css">
 	<link rel="stylesheet" type="text/css" href="/css/PostArticle.css">
 	<link rel="stylesheet" type="text/css" href="/css/loginTab.css">
+	<link rel="stylesheet" type="text/css" href="/css/userDetail.css">
 
 	<!-- slick -->
 	<link rel="stylesheet" type="text/css" href="/css/slick/slick.css">
@@ -25,11 +26,15 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
 
+	<!-- bootstrap social button -->
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.css">
 
 </head>
 
 <body>
 	<script type="text/javascript" src="/js/jquery/jquery-3.3.1.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="/js/slick/slick.min.js"></script>
 
@@ -39,30 +44,8 @@
 
 	@include('giaodien::footer')
 
-<script type="text/javascript">
-	window.onscroll = function () {
-		scrollFunction()
-	};
-
-	function scrollFunction() {
-		if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-			document.querySelector('header').style.background = 'rgba(34,139,34,0.7)';
-		} 
-		else{
-			document.querySelector('header').style.background = 'transparent';
-		}
-
-	};
-
-	$('.menu-title a').click(function(event) {
-		var titles = document.querySelectorAll('.menu-title');
-		for (var i = titles.length - 1; i >= 0; i--) {
-			titles[i].className= titles[i].className.replace(' active', '');
-		}
-
-		event.target.parentNode.className+=' active';
-	});
-</script>
+<script type="text/javascript" src="/js/layoutMaster.js"></script>
+	<script type="text/javascript">alert('here');</script>
 
 <script>
 	var msg = '{{Session::get('alert')}}';

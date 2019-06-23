@@ -55,6 +55,8 @@ class RegisterController extends Controller
         ]);
     }
 
+    
+
     /**
      * Create a new user instance after a valid registration.
      *
@@ -75,5 +77,18 @@ class RegisterController extends Controller
             'hd'=>$data['hd'],
             'remember_token'=>null,
         ]);
+
+
     }
+
+    //  *
+    //  * Create a new user from another class
+    //  *
+    //  * @param  array  $data
+    //  * @return method
+     
+    // public static function createUserFromAnotherClass(array $data)
+    // {
+    //     return new User($data);
+    // }
 }

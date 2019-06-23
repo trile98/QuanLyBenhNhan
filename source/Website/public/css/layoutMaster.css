@@ -1,9 +1,14 @@
-html{
-	height: 100%;
+html, body {
+  position: relative;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
-
 body{
-	overflow-x: hidden;
+	overflow: auto;
 	background-color: #F6F8FA !important;
 	max-height: 100%;
 }
@@ -28,14 +33,45 @@ header .logo a{
 	cursor: pointer;
 }
 
-.menu ul{
+/*menu mobile*/
+.menu-button{
+	display: none;
+	text-align: right;
+	padding-right: 2%;
+}
+
+.menu-button button{
+	border: solid 0.05rem #b0e0e6;
+	border-radius: 10%;
+	background-color: transparent;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.menu-button button div{
+	width: 35px;
+	height: 5px;
+	background-color: #b0e0e6;
+	margin: 6px 0;
+
+}
+
+#SmallMenu{
+	display: none;
+	margin-right: -100%;
+}
+
+
+/*--------------*/
+
+.menu ul.mainMenu{
 	list-style: none;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
 }
 
-.menu-title{
+.mainMenu .menu-title{
 	position: relative;
 	padding: 0.5% 1%;
 	white-space: nowrap;
@@ -57,12 +93,13 @@ header .logo a{
 .menu-title.active:before{
 	content:'';
 	border-bottom: solid 2px #CD853F; 
-}*/
+	}*/
 
-.menu-title a:hover{
+.mainMenu .menu-title a:hover{
 	/*animation: borderAnimationIn 0.25s linear forwards;*/
 	color:black;
 }
+
 
 @keyframes borderAnimationIn{
 	from{
@@ -84,7 +121,7 @@ header .logo a{
 	}
 }
 
-.menu-title a{
+.mainMenu .menu-title a{
 	text-decoration: none;
 	color: #b0e0e6;
 	font-size: 17px;
@@ -92,15 +129,119 @@ header .logo a{
 	cursor: pointer;
 }
 
-.menu-title.active a{
+.mainMenu .menu-title.active a{
 	color: #CD853F;
 	cursor: pointer;
 }
+
+.menu-account a{
+	color: #b0e0e6;
+}
+
+.menu-account{
+	position: relative;
+	padding: 0.5% 1%;
+	white-space: nowrap;
+	cursor: pointer;
+}
+
+.dropdown-toggle::after {
+	display:none;
+}
+
+.menu-account .dropdown-menu{
+	color: black;
+}
+
 
 
 /*footer*/
 footer{
 	text-align: center;
 	background-color: #228b22;
-	
+
 }
+
+
+/*Set up css for mobile screen*/
+@media only screen and (max-width: 991px){
+	.menu {
+		display: none;
+	}
+
+	.menu-button{
+		display: block;
+	}
+	@keyframes slidein{
+		from{
+			right: -50%;
+			margin-right: -100%;
+		}
+		to{
+			right: 0%;
+			margin-right: 0%;
+		}
+	}
+
+	@keyframes slideout{
+		from{
+			right: 0%;
+			margin-right: 0%;
+		}
+		to{
+			right: -50%;
+			margin-right: -100%;
+		}
+	}
+
+
+	#SmallMenu ul{
+		list-style: none;
+	}
+
+	#SmallMenu ul li{
+		padding-top: 3%;
+	}
+
+	#SmallMenu ul li a{
+		text-decoration: none;
+		color: #b0e0e6;
+		text-transform: uppercase;
+	}
+
+	#SmallMenu{
+		display: block;
+		background-color: rgba(0,0,0,0.8);
+		z-index: 2;
+		position: fixed;
+		right: -50%;
+		width: 50%;
+		height: 100%;
+	}
+
+	#SmallMenu ul{
+		padding-right: 30px;
+		padding-left: 20px; 
+	}
+
+
+
+	#SmallMenu ul li div#accountOpt ul li{
+		border-left: solid 2px #b0e0e6;
+		padding-left: 3%;
+	}
+
+	#SmallMenu ul li div#accountOpt ul li a{
+		text-transform: none;
+	}
+
+}
+
+@media only screen and (max-width: 375px){
+	#SmallMenu{
+		width: 100%;
+		margin-top: 3%;
+
+	}
+}
+/*-------------------------*/

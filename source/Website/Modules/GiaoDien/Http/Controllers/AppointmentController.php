@@ -10,6 +10,8 @@ use Kreait\Firebase\Factory;
 use Kreait\Firebase\ServiceAccount;
 use Kreait\Firebase\Database;
 
+use Auth;
+
 class AppointmentController extends Controller
 {
     
@@ -20,13 +22,13 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        
-       if(!auth()->check())
-            $headerlink = 'giaodien::header';
-        else
+       if(!Auth::check())
+            return redirect('/dang-nhap');
+        else{
             $headerlink = 'giaodien::login_header';
-        $showVar =0;
-        return view('giaodien::layouts.appointment',['ShowVar'=>$showVar,'dateValue'=>null,'headerLink'=>$headerlink]);
+            $showVar =0;
+            return view('giaodien::layouts.appointment',['ShowVar'=>$showVar,'dateValue'=>null,'headerLink'=>$headerlink]);
+        }
     }
 
     /**
@@ -55,21 +57,30 @@ class AppointmentController extends Controller
      */
     public function show($date)
     {
-        $checkVar = app(LoginController::class)->checkLogin;
-        if($checkVar=='false')
-            $headerlink = 'giaodien::header';
-        else
+        if(!Auth::check())
+            return redirect('/dang-nhap');
+        else{
             $headerlink = 'giaodien::login_header';
-        $serviceAccount = ServiceAccount::fromJsonFile(dirname(__DIR__,4).'/app/Http/Controllers/dacna-66ea5-9ee2da1e4e0a.json');
-        $firebase = (new Factory())
-        ->withServiceAccount($serviceAccount)
-        ->withDatabaseUri('https://dacna-66ea5.firebaseio.com/')
-        ->create();
-        $database = $firebase->getDatabase();
-        $data=$database->getReference('ServingHours/'.$date);
-        $array = $data->orderByKey()->getValue();
-        $showVar=1;
-        return view('giaodien::layouts.appointment',['ServingHours'=>$array,'ShowVar'=>$showVar,'dateValue'=>$date,'headerLink'=>$headerlink]);
+
+            $serviceAccount = ServiceAccount::fromJsonFile(dirname(__DIR__,4).'/app/Http/Controllers/dacna-66ea5-9ee2da1e4e0a.json');
+            $firebase = (new Factory())
+            ->withServiceAccount($serviceAccount)
+            ->withDatabaseUri('https://dacna-66ea5.firebaseio.com/')
+            ->create();
+            $database = $firebase->getDatabase();
+            $data=$database->getReference('ServingHours/'.$date);
+            $array = $data->getValue();
+            //     ksort($array);
+            // dd($array);
+            if(!empty($array)){
+               $showVar=1;
+                return view('giaodien::layouts.appointment',['ServingHours'=>$array,'ShowVar'=>$showVar,'dateValue'=>$date,'headerLink'=>$headerlink]); 
+            }
+            else{
+                $showVar=0;
+                return view('giaodien::layouts.appointment',['ShowVar'=>$showVar,'dateValue'=>$date,'headerLink'=>$headerlink])->with('alert',"Dữ liệu trống");
+            } 
+        }
     }
 
     /**

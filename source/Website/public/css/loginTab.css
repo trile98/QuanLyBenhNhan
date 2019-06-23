@@ -2,7 +2,7 @@
 	margin: auto;
 	margin-top: 60px;
 	margin-bottom: 60px;
-	width: 50%;
+	width: 30%;
 
 }
 
@@ -48,6 +48,13 @@
 
 .tabcontent {
   animation: fadeEffect 1s; /* Fading effect takes 1 second */
+}
+
+.tabcontent button{
+  width: 100%;
+}
+
+.tabcontent button span{
 }
 
 /* Go from zero to full opacity */

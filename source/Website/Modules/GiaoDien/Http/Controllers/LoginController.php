@@ -10,9 +10,14 @@ use Kreait\Firebase\Factory;
 use Kreait\Firebase\ServiceAccount;
 use Kreait\Firebase\Database;
 use Kreait\Firebase\Exception\AuthException;
+
+use App\Http\Controllers\Auth\RegisterController;
 use Socialite;
-use User;
+use App;
+use App\User as User;
 use Auth;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+
 
 class LoginController extends Controller
 {
@@ -33,12 +38,11 @@ class LoginController extends Controller
      */
     public function index()
     {
-        // dd(Auth::user());
         if(!Auth::check())
             $headerlink = 'giaodien::header';
         else
             $headerlink = 'giaodien::login_header';
-        return view('giaodien::layouts.Login',['headerLink'=>$headerlink])->with('alert', Auth::check());
+        return view('giaodien::layouts.Login',['headerLink'=>$headerlink]);
     }
 
     /**
@@ -83,10 +87,8 @@ class LoginController extends Controller
     public function logout_process()
     {
          // if(isset($_POST['Logoutbtn'])){
-            // dd(Auth::check());
                 Auth::logout();
-            // dd(Auth::check());
-            return redirect('')->with('alert',Auth::check());
+            return redirect('')->with('alert',"Đăng xuất thành công");
             // auth()->logout();
             // return redirect('');
          // }
@@ -136,13 +138,16 @@ class LoginController extends Controller
         } catch (\Exception $e) {
             return redirect('/dang-nhap')->with('alert',$e);
         }
+
         // // only allow people with @company.com to login
         // if(explode("@", $user->email)[1] !== 'company.com'){
         //     return redirect()->to('/');
         // }
+
         // check if they're an existing user
             $this->createDatabase();
-
+            $fullDetailOfUser = $user->user + ['remember_token'=>null];
+            // dd($fullDetailOfUser);
         $existingUser = $this->VerifyUser($user->email);
 
         if($existingUser){
@@ -151,25 +156,22 @@ class LoginController extends Controller
             Auth::loginUsingId($existingUser['id'], true);
         }
         else {
+            $UserFromFirebase = (array) $this->firebase->getAuth()->getUserByEmail($user->email);
+            $uid = $UserFromFirebase['uid'];
+            
             // create a new user
-            $NewUser = App\Http\Controllers\Auth\RegisterController::create($user->user);
+            $NewUser = new User($fullDetailOfUser);
+
+
             $this->database=$this->firebase->getDatabase();
             $UsersData = $this->database->getReference("Users_Account");
-            $Users_Key_Array = $UsersData->getValue();
-
-            $NumberOfKeys = count($Users_Key_Array); //= next key
-            if($NumberOfKeys!=0)
-                $this->database->getReference("Users_Account/".$NumberOfKeys)->set($user->user);
-            else{
-                $this->database->getReference("Users_Account/0")->set($user->user);
-            }
-
+            
+            $this->database->getReference("Users_Account/".$uid)->set($fullDetailOfUser);
+            
             Auth::login($NewUser, true);
         }
-        // dd(Auth::check());
-        return redirect('')->with('alert',Auth::check());
+        return redirect('')->with('alert',"Đăng nhập thành công");
 
-        // print_r($user);
     }
 
     function VerifyUser($email){
@@ -178,9 +180,12 @@ class LoginController extends Controller
         $UsersData = $this->database->getReference("Users_Account");
         $Users_Account_Array = $UsersData->getValue();
 
-        foreach ($Users_Account_Array as $User) {
-            if($User['email']==$email){
-                return $User;
+        if($Users_Account_Array!=null)
+        {
+            foreach ($Users_Account_Array as $User) {
+                if($User['email']==$email){
+                    return $User;
+                }
             }
         }
 

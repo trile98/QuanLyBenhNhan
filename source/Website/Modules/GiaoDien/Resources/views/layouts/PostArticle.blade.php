@@ -40,13 +40,12 @@
 </form>
 
 <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+
 <script>
 	CKEDITOR.replace( 'editor' );
 </script>
+
 <script>
-
-	
-
 	function SubmitForm(){
 		
 		var html = CKEDITOR.instances.editor.getData();

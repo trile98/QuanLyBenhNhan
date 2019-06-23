@@ -5,24 +5,49 @@ namespace Modules\GiaoDien\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Session;
+
+use Kreait\Firebase;
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\ServiceAccount;
+use Kreait\Firebase\Database;
+use Kreait\Firebase\Exception\AuthException;
+
+use App\Http\Controllers\Auth\RegisterController;
+use Socialite;
+use App;
+use App\User as User;
 use Auth;
 
-class HomeController extends Controller
+class UserInformationController extends Controller
 {
+    private $firebase, $database;
+
+    public function createDatabase(){
+        $serviceAccount = ServiceAccount::fromJsonFile(dirname(__DIR__,4).'/app/Http/Controllers/dacna-66ea5-9ee2da1e4e0a.json');
+        $this->firebase = (new Factory())
+        ->withServiceAccount($serviceAccount)
+        ->withDatabaseUri('https://dacna-66ea5.firebaseio.com/')
+        ->create();
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-         if(!Auth::check()){
-            $headerlink = 'giaodien::header';
-         }
-        else{
-            $headerlink = 'giaodien::login_header';
-        }
-        return view('giaodien::layouts.home',['headerLink'=>$headerlink]);
+        $headerlink = 'giaodien::login_header';
+        $user = Auth::user();
+
+        $this->createDatabase();
+        $UserFromFirebase = (array) $this->firebase->getAuth()->getUserByEmail($user->email);
+        $uid = $UserFromFirebase['uid'];
+
+        $this->database=$this->firebase->getDatabase();
+        $existArticles = $this->database->getReference("Article/".$uid)->getValue();
+
+        // dd($existArticles);
+        return view('giaodien::layouts.userInformation',['headerLink'=>$headerlink,'user'=>$user,'articles'=>$existArticles]);
     }
 
     /**

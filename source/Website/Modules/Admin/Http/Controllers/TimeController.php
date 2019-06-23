@@ -216,9 +216,9 @@ class TimeController extends Controller
         
     }
 
-    function editDate($num){
-        if($num<10)
-    }
+    // function editDate($num){
+    //     if($num<10)
+    // }
 
     /**
      * Show the specified resource.

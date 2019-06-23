@@ -18,9 +18,13 @@ Route::prefix('')->group(function() {
 
     Route::get('/post-article','PostArticleController@index');
     Route::post('/post-article','PostArticleController@store');
+    Route::get('/show-article','PostArticleController@show');
 
     Route::get('/dang-nhap','LoginController@index');
     Route::get('/redirect','LoginController@show');
     Route::get('/logout','LoginController@logout_process');
     Route::get('/callback','LoginController@handleProviderCallback');
+
+    Route::get('/user-detail','UserInformationController@index');
+
 });

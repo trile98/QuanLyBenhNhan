@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 
 class User extends Authenticatable
 {
@@ -16,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'id', 'email', 'verified_email', 'name','given_name','family_name','picture','locale','hd', 
+        'id', 'email', 'verified_email', 'name','given_name','family_name','picture','locale','hd','remember_token',
     ];
 
     /**
@@ -25,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-         'remember_token',
+        
     ];
 
     /**
@@ -36,4 +37,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * create new user.
+     *
+     * @var array
+     */
+    public static function CreateNewUser(array $data){
+        $newOne = new AuthenticatableContract();
+        foreach ($data as $key => $value) {
+            $newOne[$key] = $value;
+        }
+        return $newOne;
+    }
 }
