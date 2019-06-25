@@ -24,9 +24,16 @@
 </div>
 
 <div id="article" class="detailTabcontent">
+  @if($articles!=null)
 	@foreach($articles as $key=>$article)
 		<a href="#">{{$article['title']}}</a>
 	@endforeach
+
+  @else
+  <label>Hiện bạn chưa có bài viết nào</label>
+
+  @endif
+
 </div>
 
 <!-- <div id="Tokyo" class="detailTabcontent">

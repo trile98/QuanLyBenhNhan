@@ -31,6 +31,7 @@ header .logo a{
 	text-decoration: none;
 	color: #b0e0e6;
 	cursor: pointer;
+
 }
 
 /*menu mobile*/
@@ -127,6 +128,7 @@ header .logo a{
 	font-size: 17px;
 	font-weight: bold;
 	cursor: pointer;
+	
 }
 
 .mainMenu .menu-title.active a{

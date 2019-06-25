@@ -13,8 +13,10 @@
 
 Route::prefix('')->group(function() {
     Route::get('/', 'HomeController@index');
+    
     Route::get('/datlich', 'AppointmentController@index');
     Route::post('/datlich', 'AppointmentController@checkPost');
+    Route::post('/confirmAppointment', 'AppointmentController@store');
 
     Route::get('/post-article','PostArticleController@index');
     Route::post('/post-article','PostArticleController@store');

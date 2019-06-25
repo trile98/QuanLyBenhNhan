@@ -65,28 +65,31 @@ class PostArticleController extends Controller
             $Author = isset($_POST['ArticleAuthor'])? $_POST['ArticleAuthor']:"";
             $Content = isset($_POST['ArticleContent'])? $_POST['ArticleContent']:"";
 
-            $data  = [
-                'title'=>$Title,
-                'author'=>$Author,
-                'content'=>$Content
-            ];
+            $this->createDatabase();
 
             $user = Auth::user();
 
-            $this->createDatabase();
             $UserFromFirebase = (array) $this->firebase->getAuth()->getUserByEmail($user->email);
             $uid = $UserFromFirebase['uid'];
 
+            $data  = [
+                'title'=>$Title,
+                'author'=>$Author,
+                'content'=>$Content,
+                'UserUID' => $uid
+            ];
+
             $this->database=$this->firebase->getDatabase();
-            $existArticles = $this->database->getReference("Article/".$uid)->getValue();
+            $existArticles = $this->database->getReference("Article")->getValue();
 
             //chua co bai nao
             if ($existArticles==null) {
-                $this->database->getReference("Article/".$uid."/0")->set($data);
+                $this->database->getReference("Article/art1")->set($data);
             }
             else{
                 $currentId=count($existArticles);
-                $this->database->getReference("Article/".$uid."/".$currentId)->set($data);
+                $currentId++;
+                $this->database->getReference("Article/art".$currentId)->set($data);
 
             }
             return redirect()->back()->with('alert','Lưu thành công');
