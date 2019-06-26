@@ -43,9 +43,8 @@
 	@yield('content')
 
 	@include('giaodien::footer')
-
+	
 <script type="text/javascript" src="/js/layoutMaster.js"></script>
-	<!-- <script type="text/javascript">alert('here');</script> -->
 
 <script>
 	var msg = '{{Session::get('alert')}}';

@@ -145,9 +145,9 @@ class LoginController extends Controller
         // }
 
         // check if they're an existing user
-            $this->createDatabase();
-            $fullDetailOfUser = $user->user + ['remember_token'=>null];
-            // dd($fullDetailOfUser);
+        $this->createDatabase();
+        $fullDetailOfUser = $user->user + ['remember_token'=>null];
+            
         $existingUser = $this->VerifyUser($user->email);
 
         if($existingUser){

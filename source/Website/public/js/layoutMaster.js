@@ -1,6 +1,6 @@
-window.onscroll = function () {
+$('body').scroll(function(event) {
 	scrollFunction();
-};
+});
 
 function scrollFunction() {
 	if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
@@ -19,5 +19,6 @@ $('.menu-title a').click(function(event) {
 	}
 
 	event.target.parentNode.className+=' active';
+	// alert("message?: DOMString");
 });
 

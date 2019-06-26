@@ -4,7 +4,7 @@
 
 		<div class="menu col-lg-8 col-md-8">
 			<ul class="mainMenu">
-				<li class="menu-title"><a href="#">Trang chủ</a></li>
+				<li class="menu-title"><a href="/">Trang chủ</a></li>
 				<li class="menu-title"><a href="#">Giới thiệu</a></li>
 				<li class="menu-title"><a href="/dang-nhap">Đặt lịch</a></li>
 				<li class="menu-title"><a href="#">Tin tức</a></li>
@@ -27,7 +27,7 @@
 	<!-- menu mobile -->
 	<div id="SmallMenu">
 		<ul >
-			<li ><a href="#">Trang chủ</a></li>
+			<li ><a href="/">Trang chủ</a></li>
 			<li ><a href="#">Giới thiệu</a></li>
 			<li ><a href="/dang-nhap">Đặt lịch</a></li>
 			<li ><a href="#">Tin tức</a></li>
