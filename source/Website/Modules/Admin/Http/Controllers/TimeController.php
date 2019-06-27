@@ -94,7 +94,7 @@ class TimeController extends Controller
     }
 
     // Cac ham xu ly thoi gian 
-    function TimeCalculate($Start, $Close, $Space){
+    public function TimeCalculate($Start, $Close, $Space){
        
 
         //tách phần hour và min trong một giờ
@@ -175,7 +175,7 @@ class TimeController extends Controller
         return $arr_result;
     }
 
-    function CheckDate($D,$M,$Y){
+    public function CheckDate($D,$M,$Y){
         if($M==1||$M==3||$M==5||$M==7||$M==8||$M==10||$M==12){
             if($D==31){
                 if($M!=12){

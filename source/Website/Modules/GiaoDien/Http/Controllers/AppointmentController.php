@@ -66,8 +66,6 @@ class AppointmentController extends Controller
 
             $this->createDatabase();
             
-            $DataRef=$this->database->getReference('ServingHours/'.$Date."/".$Time);
-
             //so luong hien tai
             $numberOfRegistration = $this->database->getReference('ServingHours/'.$Date."/".$Time."/numberOfRegistration")->getValue();
 
